@@ -1,5 +1,5 @@
+import { Order } from 'src/orders/order.entity';
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, JoinColumn } from 'typeorm';
-import { Order } from '../../orders/order.entity/order.entity';
 
 @Entity('location_history')
 export class LocationHistory {
