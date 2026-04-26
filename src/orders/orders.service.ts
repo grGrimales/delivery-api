@@ -26,6 +26,8 @@ export class OrdersService {
             addressTo: dto.addressTo,
             customer,
             status: OrderStatus.PENDING,
+            lat: dto.lat,
+            lng: dto.lng,
         });
         return this.ordersRepo.save(order);
     }

@@ -14,7 +14,6 @@ type Position = {
 
 @Injectable()
 export class TrackingService {
-    // Cache en memoria: orderId → última posición
     private positions = new Map<string, Position>();
     private driverSockets = new Map<string, string>(); // socketId → orderId
 
@@ -29,7 +28,6 @@ export class TrackingService {
         const entry: Position = { ...pos, ts: Date.now() };
         this.positions.set(pos.orderId, entry);
 
-        // Persistir en DB para historial de recorrido
         const order = await this.ordersRepo.findOne({ where: { id: pos.orderId } });
         if (order) {
             await this.locationRepo.save({

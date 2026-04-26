@@ -1,7 +1,7 @@
 import { Injectable, ConflictException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { User } from './user.entity';
+import { User, UserRole } from './user.entity';
 
 @Injectable()
 export class UsersService {
@@ -25,5 +25,14 @@ export class UsersService {
         }
         const user = this.usersRepo.create(data);
         return this.usersRepo.save(user);
+    }
+
+
+
+    async findDrivers(): Promise<User[]> {
+        return this.usersRepo.find({
+            where: { role: UserRole.DRIVER },
+            select: ['id', 'name', 'email']
+        });
     }
 }
