@@ -17,9 +17,9 @@ import { NotificationsModule } from './notifications/notifications.module';
       useFactory: (config: ConfigService) => ({
         type: 'postgres',
         url: config.get('DATABASE_URL'),
-        ssl: { rejectUnauthorized: false }, // requerido por Neon
+        ssl: { rejectUnauthorized: false },
         entities: [__dirname + '/**/*.entity{.ts,.js}'],
-        synchronize: true, // solo en desarrollo, en prod usar migraciones
+        synchronize: true,
         logging: false,
       }),
     }),
