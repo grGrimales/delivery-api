@@ -6,6 +6,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { OrdersService } from './orders.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateStatusDto } from './dto/update-status.dto';
+import { User } from 'src/users/user.entity';
 
 @Controller('orders')
 @UseGuards(AuthGuard('jwt'))
@@ -37,8 +38,15 @@ export class OrdersController {
         return this.ordersService.updateStatus(id, dto);
     }
 
+
     @Patch(':id/assign')
-    assignDriver(@Param('id') id: string, @Request() req: any) {
-        return this.ordersService.assignDriver(id, req.user);
+    @UseGuards(AuthGuard('jwt'))
+    async assignDriver(
+        @Param('id') orderId: string,
+        @Body('driverId') driverId: string
+    ) {
+        const driverPartial = { id: driverId } as User;
+
+        return this.ordersService.assignDriver(orderId, driverPartial);
     }
 }

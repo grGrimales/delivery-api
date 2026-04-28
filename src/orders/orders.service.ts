@@ -76,7 +76,11 @@ export class OrdersService {
 
     async assignDriver(orderId: string, driver: User): Promise<Order> {
         const order = await this.findOne(orderId);
+
         order.driver = driver;
+
+        order.status = OrderStatus.PREPARING;
+
         return this.ordersRepo.save(order);
     }
 }

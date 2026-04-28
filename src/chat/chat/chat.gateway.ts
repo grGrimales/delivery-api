@@ -10,7 +10,7 @@ import { ChatService } from '../chat.service';
 
 @WebSocketGateway({
   namespace: '/chat',
-  cors: { origin: process.env.FRONTEND_URL, credentials: true },
+  cors: { origin: '*', credentials: true },
 })
 export class ChatGateway {
   @WebSocketServer() server: Server;
